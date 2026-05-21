@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <h1>Edit Mahasiswa</h1>
+  <% if (error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+  <div class="form-card">
+    <form action="/mahasiswa/edit/<%= mhs._id %>" method="POST">
+      <div class="form-group">
+        <label>NRP</label>
+        <input type="text" name="nrp" value="<%= mhs.nrp %>" required />
+      </div>
+      <div class="form-group">
+        <label>Nama</label>
+        <input type="text" name="nama" value="<%= mhs.nama %>" required />
+      </div>
+      <div class="form-group">
+        <label>Mata Kuliah</label>
+        <input type="text" name="mk" value="<%= Array.isArray(mhs.mk) ? mhs.mk.join(', ') : (mhs.mk || '') %>" />
+        <small>Pisahkan dengan koma jika lebih dari satu</small>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="/mahasiswa" class="btn btn-danger">Batal</a>
+      </div>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>

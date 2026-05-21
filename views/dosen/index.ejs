@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <div class="top-bar">
+    <h1>Data Dosen <span class="badge"><%= data.length %> dosen</span></h1>
+    <a href="/dosen/tambah" class="btn btn-success">+ Tambah Dosen</a>
+  </div>
+
+  <% if (pesan) { %>
+    <div class="alert alert-success"><%= pesan %></div>
+  <% } %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>NIP</th>
+        <th>Nama</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach((dsn, i) => { %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= dsn.nip %></td>
+        <td><%= dsn.nama %></td>
+        <td>
+          <a href="/dosen/edit/<%= dsn._id %>" class="btn btn-warning">Edit</a>
+          <form action="/dosen/hapus/<%= dsn._id %>" method="POST" style="display:inline" onsubmit="return confirm('Hapus dosen ini?')">
+            <button type="submit" class="btn btn-danger">Hapus</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+      <% if (data.length === 0) { %>
+      <tr><td colspan="4" style="text-align:center;color:#aaa;padding:24px">Belum ada data dosen</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer') %>

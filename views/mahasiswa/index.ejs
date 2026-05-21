@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+<div class="container">
+  <div class="top-bar">
+    <h1>Data Mahasiswa <span class="badge"><%= data.length %> mahasiswa</span></h1>
+    <a href="/mahasiswa/tambah" class="btn btn-success">+ Tambah Mahasiswa</a>
+  </div>
+
+  <% if (pesan) { %>
+    <div class="alert alert-success"><%= pesan %></div>
+  <% } %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>NRP</th>
+        <th>Nama</th>
+        <th>Mata Kuliah</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach((mhs, i) => { %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= mhs.nrp %></td>
+        <td><%= mhs.nama %></td>
+        <td><%= Array.isArray(mhs.mk) ? mhs.mk.join(', ') : (mhs.mk || '') %></td>
+        <td>
+          <a href="/mahasiswa/edit/<%= mhs._id %>" class="btn btn-warning">Edit</a>
+          <form action="/mahasiswa/hapus/<%= mhs._id %>" method="POST" style="display:inline" onsubmit="return confirm('Hapus mahasiswa ini?')">
+            <button type="submit" class="btn btn-danger">Hapus</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+      <% if (data.length === 0) { %>
+      <tr><td colspan="5" style="text-align:center;color:#aaa;padding:24px">Belum ada data mahasiswa</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer') %>
